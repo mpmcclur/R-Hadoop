@@ -15,6 +15,7 @@ Sys.setenv(HADOOP_STREAMING="/home/user/Documents/hadoop-3.1.2/share/hadoop/tool
 install.packages("rJava")
 # if the above fails, try sol'ns in https://stackoverflow.com/questions/42562160/r-cmd-javareconf-not-finding-jni-h
 # follow these steps too if rJava fails to load: https://stackoverflow.com/questions/28462302/libjvm-so-cannot-open-shared-object-file-no-such-file-or-directory
+# now install the following via terminal:
 # run R CMD INSTALL rhdfs_1.0.8.tar.gz
 # run R CMD INSTALL rmr2_3.3.1.tar.gz
 
@@ -25,7 +26,7 @@ install.packages("rJava")
 # type cd and then cd Documents/thrift-0.9.0 and then ./configure
 # run R CMD INSTALL rhbase_1.2.1.tar.gz-----------------
 
-
+# test RHadoop (minus RHbase) installation by scripting objects in R and processing through Hadoop
 library(rJava)
 library(rhdfs)
 library(rmr2)
