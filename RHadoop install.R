@@ -1,0 +1,45 @@
+# This script helps the user install RHadoop on Bionic Beaver. All dependencies of RHadoop, with the exception of RHbase, are successfully installed.
+# Also shown are introductory scripts to run against the Hadoop cluster, the setup of which is not covered here.
+
+install.packages(c("Rcpp", "RJSONIO", "bitops", "digest","functional", "stringr", "plyr", "reshape2", "dplyr","R.methodsS3", "caTools", "Hmisc"))
+#.libPaths()
+# set up environment variables
+Sys.setenv(HADOOP_CMD="/home/user/Documents/hadoop-3.1.2/bin/hadoop")
+Sys.setenv(HADOOP_CONF_DIR="/home/user/Documents/hadoop-3.1.2/etc/hadoop")
+# if necessary, run export HADOOP_CONF_DIR=/home/user/Documents/hadoop-3.1.2/etc/hadoop
+Sys.setenv(JAVA_HOME="/usr/lib/jvm/java-11-openjdk-amd64")
+Sys.setenv(HADOOP_STREAMING="/home/user/Documents/hadoop-3.1.2/share/hadoop/tools/lib/hadoop-streaming-3.1.2.jar")
+# download RHadoop packages: https://github.com/RevolutionAnalytics/RHadoop/wiki/Downloads
+# run "sudo apt-get install r-cran-rjava" to install rJava since install.packages("rJava") won't work.
+# if rJava fails to load in the above "run sudo R CMD javareconf"
+install.packages("rJava")
+# if the above fails, try sol'ns in https://stackoverflow.com/questions/42562160/r-cmd-javareconf-not-finding-jni-h
+# follow these steps too if rJava fails to load: https://stackoverflow.com/questions/28462302/libjvm-so-cannot-open-shared-object-file-no-such-file-or-directory
+# run R CMD INSTALL rhdfs_1.0.8.tar.gz
+# run R CMD INSTALL rmr2_3.3.1.tar.gz
+
+#------- cannot install hbase, so the following code is ineffective. Skip it
+# install Thrift 0.90: https://thrift-tutorial.readthedocs.io/en/latest/installation.html via https://archive.apache.org/dist/thrift/0.9.0/
+# type tar -xvzf thrift-0.9.0.tar.gz -C /home/user/Documents
+# type cd Documents/thrift-0.9.0/contrib/fb303$ and then ./bootstrap.sh
+# type cd and then cd Documents/thrift-0.9.0 and then ./configure
+# run R CMD INSTALL rhbase_1.2.1.tar.gz-----------------
+
+
+library(rJava)
+library(rhdfs)
+library(rmr2)
+hdfs.init() # initialize hdfs package
+hdfs.defaults() # retrieve hdfs defaults
+small.ints=to.dfs(1:10) # using rmr package; writes objects to file system
+# define MapReduce job
+mapreduce(input = small.ints,  map = function(k, v){
+  lapply(seq_along(v), function(r){
+  x <- runif(v[[r]])
+  keyval(r,c(max(x),min(x))) })})
+
+output <- from.dfs('/tmp/file56dfe473d0d')
+View(output)
+table_output <- do.call('rbind', lapply(output$val,"[[",2))
+table_output # produces NULL
+
