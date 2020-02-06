@@ -64,14 +64,17 @@ print(list(city.key, page.value), stdout())
 # closing the connectionclose(input)
 
 # now that Mapper and Reducer script are produced in R, let's run them in the Hadoop environment
-# download Hadoop Streaming, place in appropriate directory, and execute the following:
-system(paste("/home/user/Documents/HadoopStreaming",
+# download Hadoop Streaming, place in the {HADOOP_HOME} directory, and execute the following:
+# recall that "bin/hadoop" is simply a generic streaming option that takes inputs/actions
+system(paste("cd /home/user/Documents/hadoop-3.1.2","bin/hdfs jar hadoop-streaming-3.2.1.jar",
              "-input /home/user/Desktop/Google Analytics/ga-compiled.csv",
              "-output /home/user/Desktop/Google Analytics/output2",
              "-file /home/user/Documents/hadoop-3.1.2/ga/ga_mapper.R",
              "-mapper ga_mapper.R",
              "-file /home/user/Documents/hadoop-3.1.2/ga/ga_reducer.R",
              "-reducer ga_reducer.R"))
+# list the generated output files by running the following command
+# bin/hdfs dfs -cat /home/user/Google Analytics/output/part-* > temp.txt
 
 
 
