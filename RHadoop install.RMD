@@ -33,7 +33,7 @@ install.packages("rJava")
 # run R CMD INSTALL rhbase_1.2.1.tar.gz```
 
 ## Installation Test
-```{r }
+```{r test}
 # test RHadoop (minus RHbase) installation by scripting objects in R and processing through Hadoop
 library(rJava)
 library(rhdfs)
