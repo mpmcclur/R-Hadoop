@@ -1,6 +1,11 @@
+---
+title: "RHadoop Install"
+output: html_document
+---
+## Installation
 # This script helps the user install RHadoop on Bionic Beaver. All dependencies of RHadoop, with the exception of RHbase, are successfully installed.
 # Also shown are introductory scripts to run against the Hadoop cluster, the setup of which is not covered here.
-
+```{r setup, include=FALSE}
 install.packages(c("Rcpp", "RJSONIO", "bitops", "digest","functional", "stringr", "plyr", "reshape2", "dplyr","R.methodsS3", "caTools", "Hmisc"))
 #.libPaths()
 # set up environment variables
@@ -18,14 +23,17 @@ install.packages("rJava")
 # now install the following via terminal:
 # run R CMD INSTALL rhdfs_1.0.8.tar.gz
 # run R CMD INSTALL rmr2_3.3.1.tar.gz
-
-#------- cannot install hbase, so the following code is ineffective. Skip it
+```
+## RHbase Installation
+# there are numerous incompatibilities present when attempting to install rhbase, so the following code is ineffective. Skip it.
 # install Thrift 0.90: https://thrift-tutorial.readthedocs.io/en/latest/installation.html via https://archive.apache.org/dist/thrift/0.9.0/
 # type tar -xvzf thrift-0.9.0.tar.gz -C /home/user/Documents
 # type cd Documents/thrift-0.9.0/contrib/fb303$ and then ./bootstrap.sh
 # type cd and then cd Documents/thrift-0.9.0 and then ./configure
-# run R CMD INSTALL rhbase_1.2.1.tar.gz-----------------
+# run R CMD INSTALL rhbase_1.2.1.tar.gz```
 
+## Installation Test
+```{r}
 # test RHadoop (minus RHbase) installation by scripting objects in R and processing through Hadoop
 library(rJava)
 library(rhdfs)
@@ -43,4 +51,4 @@ output <- from.dfs('/tmp/file56dfe473d0d')
 View(output)
 table_output <- do.call('rbind', lapply(output$val,"[[",2))
 table_output # produces NULL
-
+```
