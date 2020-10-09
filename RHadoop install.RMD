@@ -3,8 +3,7 @@ title: "RHadoop Install"
 output: html_document
 ---
 ## Installation
-# This script helps the user install RHadoop on Bionic Beaver. All dependencies of RHadoop, with the exception of RHbase, are successfully installed.
-# Also shown are introductory scripts to run against the Hadoop cluster, the setup of which is not covered here.
+This script helps the user install RHadoop on Bionic Beaver. All dependencies of RHadoop, with the exception of RHbase, are successfully installed. Also shown are introductory scripts to run against the Hadoop cluster, the setup of which is not covered here.
 ```{r setup, include=FALSE}
 install.packages(c("Rcpp", "RJSONIO", "bitops", "digest","functional", "stringr", "plyr", "reshape2", "dplyr","R.methodsS3", "caTools", "Hmisc"))
 #.libPaths()
@@ -25,7 +24,7 @@ install.packages("rJava")
 # run R CMD INSTALL rmr2_3.3.1.tar.gz
 ```
 ## RHbase Installation
-# there are numerous incompatibilities present when attempting to install rhbase, so the following code is ineffective. Skip it.
+There are numerous incompatibilities present when attempting to install rhbase, so the following code is ineffective. Skip it.
 # install Thrift 0.90: https://thrift-tutorial.readthedocs.io/en/latest/installation.html via https://archive.apache.org/dist/thrift/0.9.0/
 # type tar -xvzf thrift-0.9.0.tar.gz -C /home/user/Documents
 # type cd Documents/thrift-0.9.0/contrib/fb303$ and then ./bootstrap.sh
